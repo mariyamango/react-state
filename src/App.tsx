@@ -1,17 +1,20 @@
 import { useState } from 'react'
 import './App.css'
 import {response} from './CharacterResponse.ts'
+import './CharacterList.tsx'
+import CharacterList from "./CharacterList.tsx";
 
 function App() {
-  const [characterList, setCharacterList] = useState(response.results)
+    const [getCharacterList, setCharacterList] = useState(response.results);
+    console.log(setCharacterList);
 
-  return (
-    <>
-      <div className="App">
-          {characterList.forEach((element) -> element.name)}
-      </div>
-    </>
-  )
+    return (
+        <>
+            <div className="App">
+                {CharacterList (getCharacterList)}
+            </div>
+        </>
+    )
 }
 
 export default App
