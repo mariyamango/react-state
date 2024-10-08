@@ -8,6 +8,8 @@ import Filter from "./Filter.tsx";
 function App() {
     const [getCharacterList, setCharacterList] = useState(response.results);
     const [displayError, setError] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [itemsPerPage] = useState(5);
     console.log(setCharacterList);
 
     const updateCharacterList = function (filterString: string) {
@@ -17,7 +19,14 @@ function App() {
             )
         setError(filteredList.length === 0);
         setCharacterList(filteredList);
+        setCurrentIndex(0);
     }
+
+    const loadMoreCharacters = () => {
+        setCurrentIndex((prevIndex) => prevIndex + itemsPerPage);
+    }
+
+    const displayedCharacters = getCharacterList.slice(currentIndex, currentIndex + itemsPerPage);
 
     return (
         <>
@@ -30,8 +39,9 @@ function App() {
                 </div> : null
             }
             <div className="list">
-                {CharacterList(getCharacterList)}
+                <CharacterList characters = {displayedCharacters}/>
             </div>
+            {currentIndex + itemsPerPage < getCharacterList.length && (<button onClick={loadMoreCharacters}>Load More</button> )}
         </>
     )
 }

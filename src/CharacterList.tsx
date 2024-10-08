@@ -1,8 +1,14 @@
-type Character = { name: string };
+type Character = {
+    name: string
+};
 
-export default function CharacterList  (props: Character[])  {
+interface CharacterListProps {
+    characters: Character[];
+}
+
+export default function CharacterList  ({characters}: CharacterListProps)  {
     return <ul>
-        {props.map((character) => (
+        {characters.map((character) => (
             <li>{character.name}</li>
         ))}
     </ul>
